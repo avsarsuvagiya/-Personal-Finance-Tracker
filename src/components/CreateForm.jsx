@@ -1,53 +1,95 @@
-import React, { useState } from 'react'
-import {  useNavigate } from 'react-router-dom';
 
-const CreateForm = ({ onAdd }) => {
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-        amount: '',
-        description: '',
-        category: '',
-        type: 'Income',
-        date: '',
-    });
+import React, { useState, useEffect } from 'react';
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+const CreateForm = ({ onAdd, onUpdate, editable }) => {
+  const [formData, setFormData] = useState({
+    amount: '',
+    description: '',
+    category: '',
+    type: 'Income',
+    date: '',
+  });
+
+  useEffect(() => {
+    if (editable) {
+      setFormData({
+        amount: editable.amount,
+        description: editable.description,
+        category: editable.category,
+        type: editable.type,
+        date: editable.date,
+      });
+    }
+  }, [editable]);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newTransaction = {
+      ...formData,
+      id: editable ? editable.id : Date.now(), // Use existing ID for edit
     };
 
+    if (editable) {
+      onUpdate(newTransaction); // Update existing transaction
+    } else {
+      onAdd(newTransaction); // Add new transaction
+    }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newTransaction = {
-            ...formData,
-            id: Date.now(),
-            amount: parseFloat(formData.amount),
-        };
-        onAdd(newTransaction);
-        setFormData({ amount: '', description: '', category: '', type: 'Income', date: '' });
-        navigate('/TransicationList')
-    };
+    setFormData({ amount: '', description: '', category: '', type: 'Income', date: '' });
+  };
 
+  return (
+    <div>
+      <h3 className="text-center my-3">{editable ? 'Edit Transaction' : 'Add Transaction'}</h3>
+      <form className="w-75 m-auto my-3 border border-dark p-3" onSubmit={handleSubmit}>
+        <input
+          name="amount"
+          type="number"
+          className="form-control my-2"
+          placeholder="Amount"
+          value={formData.amount}
+          onChange={handleChange}
+        />
+        <input
+          name="description"
+          className="form-control my-2"
+          placeholder="Description"
+          value={formData.description}
+          onChange={handleChange}
+        />
+        <input
+          name="category"
+          className="form-control my-2"
+          placeholder="Category"
+          value={formData.category}
+          onChange={handleChange}
+        />
+        <select
+          name="type"
+          value={formData.type}
+          className="form-control my-2"
+          onChange={handleChange}
+        >
+          <option value="Income">Income</option>
+          <option value="Expense">Expense</option>
+        </select>
+        <input
+          name="date"
+          type="date"
+          className="form-control my-2"
+          value={formData.date}
+          onChange={handleChange}
+        />
+        <button type="submit" className="btn btn-primary w-100">
+          {editable ? 'Update Transaction' : 'Add Transaction'}
+        </button>
+      </form>
+    </div>
+  );
+};
 
-    return (
-        <div>
-            <div className="form w-100 m-auto ">
-                <h3 className='text-center  my-3'>Transactions Form</h3>
-                <form className='w-50 m-auto my-3 border border-dark p-3' onSubmit={handleSubmit}>
-                    <input name="amount" type="number" className='form-control my-2' placeholder="Amount" value={formData.amount} onChange={handleChange} />
-                    <input name="description" className='form-control my-2' placeholder="Description" value={formData.description} onChange={handleChange} />
-                    <input name="category" className='form-control my-2' placeholder="Category" value={formData.category} onChange={handleChange} />
-                    <select name="type" value={formData.type} className='form-control my-2' onChange={handleChange}>
-                        <option value="Income">Income</option>
-                        <option value="Expense">Expense</option>
-                    </select>
-                    <input name="date" type="date" className='form-control my-2' value={formData.date} onChange={handleChange} />
-                    <button type="submit" className='btn btn-primary w-100'>Add Transaction</button>
-                    
-                </form>
-            </div>
-        </div>
-    )
-}
-
-export default CreateForm
+export default CreateForm;
