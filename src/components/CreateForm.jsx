@@ -1,24 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
 
-const CreateForm = ({ onAdd, onUpdate, editable }) => {
-  const [formData, setFormData] = useState({
-    amount: '',
-    description: '',
-    category: '',
-    type: 'Income',
-    date: '',
-  });
+const CreateForm = ({ onAdd, onUpdate, editable}) => {
+  const [formData, setFormData] = useState({amount: '', description: '', category: '', type: 'Income',date: '',});
 
   useEffect(() => {
     if (editable) {
-      setFormData({
-        amount: editable.amount,
-        description: editable.description,
-        category: editable.category,
-        type: editable.type,
-        date: editable.date,
-      });
+      setFormData({amount: editable.amount, description: editable.description, category: editable.category, type: editable.type, date: editable.date, });
     }
   }, [editable]);
 
@@ -42,10 +30,11 @@ const CreateForm = ({ onAdd, onUpdate, editable }) => {
     setFormData({ amount: '', description: '', category: '', type: 'Income', date: '' });
   };
 
+
   return (
-    <div>
-      <h3 className="text-center my-3">{editable ? 'Edit Transaction' : 'Add Transaction'}</h3>
-      <form className="w-75 m-auto my-3 border border-dark p-3" onSubmit={handleSubmit}>
+    <div className={`container `}>
+      <h4 className="text-center my-3">{editable ? 'Edit Transaction' : 'Add Transaction'}</h4>
+      <form className="my-3 border border-dark p-3 addtransactions" onSubmit={handleSubmit}>
         <input
           name="amount"
           type="number"
@@ -86,6 +75,9 @@ const CreateForm = ({ onAdd, onUpdate, editable }) => {
         />
         <button type="submit" className="btn btn-primary w-100">
           {editable ? 'Update Transaction' : 'Add Transaction'}
+        </button>
+        <button type="button" className="btn btn-secondary w-100 mt-2" onClick={() => setFormData({ amount: '', description: '', category: '', type: 'Income', date: '' })}>
+          Clear
         </button>
       </form>
     </div>

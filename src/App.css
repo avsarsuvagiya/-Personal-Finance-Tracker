@@ -1,3 +1,40 @@
-input{
+input,select{
     cursor: pointer;
+}
+.addtransactions{
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+@media screen and (min-width: 480px) and (max-width: 580px) {
+    .addtransactions{
+        width: 450px;
+        margin: auto;
+    }
+}
+
+@media screen and (min-width: 580px) and (max-width: 767px) {
+    .addtransactions{
+        width: 550px;
+        margin: auto;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 990px) {
+    .addtransactions{
+        width: 600px;
+        margin: auto;
+    }
+}
+@media screen and (min-width: 990px) and (max-width: 1200px) {
+    .addtransactions{
+        width: 700px;
+        margin: auto;
+    }
+    
+}
+@media screen and  (min-width: 1201px) {
+    .addtransactions{
+        width: 800px;
+        margin: auto;
+    }
+    
 }
