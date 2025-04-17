@@ -57,8 +57,8 @@ function App() {
 
   return (
     <>
-      <div className={darkMode ? 'app dark-mode bg-dark text-light min-vh-100 p-3' : 'app bg-light text-dark min-vh-100 p-3 '}>
-        <div className="form-check form-switch position-absolute top-0 end-0 me-3 mt-1">
+      <div className={darkMode ? 'app dark-mode bg-dark text-light min-vh-100 p-3' : 'app bg-light text-dark min-vh-100 my-5 mx-2'}>
+        <div className="form-check form-switch position-absolute top-0 end-0 me-3 mt-1 ">
           <input
             className="form-check-input"
             type="checkbox"
@@ -66,7 +66,7 @@ function App() {
             checked={darkMode}
             onChange={toggleDarkMode}
           />
-          <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
+          <label className="form-check-label " htmlFor="flexSwitchCheckDefault">
             {darkMode ? 'Light Mode' : 'Dark Mode'}
           </label>
 
@@ -85,7 +85,6 @@ function App() {
           onEdit={handleEdit}
         />
       </div>
-     
     </>
 
   );
