@@ -57,7 +57,7 @@ function App() {
 
   return (
     <>
-      <div className={darkMode ? 'app dark-mode bg-dark text-light min-vh-100 p-3' : 'app bg-light text-dark min-vh-100 my-5 mx-2'}>
+      <div className={darkMode ? 'app dark-mode bg-dark text-light min-vh-100 ' : 'app bg-light text-dark min-vh-100 '}>
         <div className="form-check form-switch position-absolute top-0 end-0 me-3 mt-1 ">
           <input
             className="form-check-input"
