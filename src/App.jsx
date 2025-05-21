@@ -53,25 +53,9 @@ function App() {
   const totalExpense = transactions.filter(t => t.type === 'Expense').reduce((sum, t) => sum + Number(t.amount), 0);
   const balance = totalIncome - totalExpense;
 
-  const toggleDarkMode = () => setDarkMode(prev => !prev);
-
   return (
     <>
-      <div className={darkMode ? 'app dark-mode bg-dark text-light min-vh-100 ' : 'app bg-light text-dark min-vh-100 '}>
-        <div className="form-check form-switch position-absolute top-0 end-0 me-3 mt-1 ">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id="flexSwitchCheckDefault"
-            checked={darkMode}
-            onChange={toggleDarkMode}
-          />
-          <label className="form-check-label " htmlFor="flexSwitchCheckDefault">
-            {darkMode ? 'Light Mode' : 'Dark Mode'}
-          </label>
-
-        </div>
-
+      <div className="bg-dark text-light min-vh-100 ">
         <BalanceDisplay balance={balance} />
         <CreateForm
           onAdd={addTransaction}
